@@ -196,7 +196,7 @@ services:
       # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
-      - ssrf_proxy_network
+      # - ssrf_proxy_network
       - default
 
   # worker service
@@ -269,13 +269,13 @@ services:
       GIN_MODE: ${SANDBOX_GIN_MODE:-release}
       WORKER_TIMEOUT: ${SANDBOX_WORKER_TIMEOUT:-15}
       ENABLE_NETWORK: ${SANDBOX_ENABLE_NETWORK:-true}
-      HTTP_PROXY: ${SANDBOX_HTTP_PROXY:-http://ssrf_proxy:3128}
-      HTTPS_PROXY: ${SANDBOX_HTTPS_PROXY:-http://ssrf_proxy:3128}
+      # HTTP_PROXY: ${SANDBOX_HTTP_PROXY:-http://ssrf_proxy:3128}
+      # HTTPS_PROXY: ${SANDBOX_HTTPS_PROXY:-http://ssrf_proxy:3128}
       SANDBOX_PORT: ${SANDBOX_PORT:-8194}
     volumes:
       - ./volumes/sandbox/dependencies:/dependencies
-    networks:
-      - ssrf_proxy_network
+    # networks:
+    #   - ssrf_proxy_network
 
   # ssrf_proxy server
   # for more information, please refer to
@@ -595,9 +595,9 @@ services:
 
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
-  ssrf_proxy_network:
-    driver: bridge
-    internal: true
+  # ssrf_proxy_network:
+  #   driver: bridge
+  #   internal: true
   milvus:
     driver: bridge
   opensearch-net:
